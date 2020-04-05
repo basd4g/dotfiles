@@ -31,7 +31,7 @@ do
     continue
   fi
   ech "  Install package $package"
-#  brew install "$package"
+  brew install "$package"
 done
 
 
@@ -46,5 +46,5 @@ do
     continue
   fi
   ech "  Install package $package"
-#  brew cask install "$package"
+  brew cask install "$package"
 done
