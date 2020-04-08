@@ -32,38 +32,39 @@ function InstallPackagesForMac() {
 
 function AptInstall() {
   PACKAGES_LIST_PATH="$1"
+  PASSWORD="$2"
   ech "Install packages in $PACKAGES_LIST_PATH"
   while read -r PACKAGE
   do
-    apt install -y "$PACKAGE"
+    echo "$PASSWORD" | sudo --stdin apt install -y "$PACKAGE"
   done < "$PACKAGES_LIST_PATH"
 }
 
 function InstallPackagesForUbuntu() {
-  if [ "$(whoami)" != "root" ]; then
-    echo "Require root privilege"
-    exit 1
-  fi
+
+  ech "Need root privilege to install with apt"
+  read -rsp "Password: " PASSWORD
+
   if ! which apt > /dev/null 2>&1 ; then
     ech "Need apt"
     exit 1
   fi
 
   curl -sL https://deb.nodesource.com/setup_13.x | bash -
-  apt update
-  apt upgrade -y
+  echo "$PASSWORD" | sudo --stdin apt update
+  echo "$PASSWORD" | sudo --stdin apt upgrade -y
 
   APTFILE_CORE="$DOTFILES_DIR/etc/aptfile-core"
   APTFILE="$DOTFILES_DIR/etc/aptfile"
 
-  AptInstall "$APTFILE_CORE"
+  AptInstall "$APTFILE_CORE" "$PASSWORD"
 
   if [ "$INSTALL_PACKAGES_CORE_ONLY" = "1" ]; then
     ech "Skip to install packages in $APTFILE"
     return 0
   fi
 
-  AptInstall "$APTFILE"
+  AptInstall "$APTFILE" "$PASSWORD"
 }
 
 
