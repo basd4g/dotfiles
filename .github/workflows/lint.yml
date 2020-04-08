@@ -1,0 +1,29 @@
+name: lint
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install required packages
+      run : |
+        sudo apt-get install shellcheck
+        sudo apt-get install zsh
+
+    - name: Check bin/*.sh
+      run : shellcheck ${GITHUB_WORKSPACE}/bin/*.sh
+
+    - name: Check .zprofile
+      run : zsh -n ${GITHUB_WORKSPACE}/.zprofile
+
+    - name: Check .zshrc
+      run : zsh -n ${GITHUB_WORKSPACE}/.zshrc
+

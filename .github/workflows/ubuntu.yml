@@ -1,0 +1,43 @@
+name: Ubuntu Setup (core packages)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ubuntu-setup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Copy
+      run : |
+        cp -r ${GITHUB_WORKSPACE} ~/
+
+    - name: Run
+      run : >
+        cd ~/dotfiles &&
+        sudo bash -c '
+        export INSTALL_PACKAGES_CORE_ONLY=1 &&
+        export SKIP_ZSH_INIT=1 &&
+        make run'
+
+    # Use error.log. Not be able to use 'set -e' in .zprofile
+    - name: Load .zprofile
+      run : |
+        touch error.log
+        zsh ~/.zprofile 2> error.log
+        cat error.log
+        if [ -s error.log ]; then false; fi
+
+    # Use error.log. Not be able to use 'set -e' in .zshrc
+    - name: Load .zshrc
+      run : |
+        touch error.log
+        zsh ~/.zshrc 2> error.log
+        cat error.log
+        if [ -s error.log ]; then false; fi
+
