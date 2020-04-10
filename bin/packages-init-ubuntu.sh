@@ -9,39 +9,38 @@ if [ "$(whoami)" != "root" ]; then
   echo "Require root privilege"
   exit 1
 fi
-if ! which apt > /dev/null 2>&1 ; then
-  ech "Need apt"
+if ! which apt-get > /dev/null 2>&1 ; then
+  ech "Need apt-get"
   exit 1
 fi
 
 ech "Install packages"
 
 # ========== nodejs ==========
-
 curl -sL https://deb.nodesource.com/setup_13.x | bash -
-apt update
-apt upgrade -y
-apt install -y nodejs
+apt-get update
+apt-get upgrade -y
+apt-get install -y nodejs
 
-# ========== apt ==========
-apt install -y yarn
-apt install -y vim
-apt install -y zsh
+# ========== apt-get ==========
+apt-get install -y yarn
+apt-get install -y vim
+apt-get install -y zsh
 
-apt install -y gdebi
-apt install -y ffmpeg
-apt install -y git
-apt install -y lynx
-apt install -y mysql-server
-apt install -y mysql-client
-apt install -y nkf
-apt install -y nmap
-apt install -y shellcheck
-apt install -y tree
-apt install -y ibus-mozc
+apt-get install -y gdebi
+apt-get install -y ffmpeg
+apt-get install -y git
+apt-get install -y lynx
+apt-get install -y mysql-server
+apt-get install -y mysql-client
+apt-get install -y nkf
+apt-get install -y nmap
+apt-get install -y shellcheck
+apt-get install -y tree
+apt-get install -y ibus-mozc
 
 # ========== xkeysnail ==========
-apt install python3-pip
+apt-get install python3-pip
 pip3 install xkeysnail
 
 # ========== snap ==========
@@ -56,10 +55,10 @@ curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compo
 chmod +x /usr/local/bin/docker-compose
 
 # ========== Chrome ==========
-sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-apt update
-apt install google-chrome-stable
+sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt-get/sources.list.d/google.list'
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-get-key add -
+apt-get update
+apt-get install google-chrome-stable
 
 # Extension
 # LINE
