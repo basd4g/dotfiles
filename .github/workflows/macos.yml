@@ -25,7 +25,11 @@ jobs:
     - name: Run
       run : |
         cd ~/dotfiles
-        export INSTALL_PACKAGES_CORE_ONLY=1
+
+        export HOMEBREW_BUNDLE_TAP_SKIP="$(bash ~/dotfiles/bin/packages-init-macos/print-packages-without-core.sh tap)
+        export HOMEBREW_BUNDLE_BREW_SKIP="$(bash ~/dotfiles/bin/packages-init-macos/print-packages-without-core.sh brew)
+        export HOMEBREW_BUNDLE_CASK_SKIP="$(bash ~/dotfiles/bin/packages-init-macos/print-packages-without-core.sh cask)"
+        export HOMEBREW_BUNDLE_MAS_SKIP="$(bash ~/dotfiles/bin/packages-init-macos/print-packages-without-core.sh mas)"
         export SKIP_ZSH_INIT=1
         make
 

@@ -11,17 +11,6 @@ if ! which brew > /dev/null 2>&1 ; then
   exit 1
 fi
 
-BREWFILE_CORE="$DOTFILES_DIR/bin/packages-init-macos/brewfile-core"
-BREWFILE="$DOTFILES_DIR/bin/packages-init-macos/brewfile"
-
-ech "Install packages in $BREWFILE_CORE"
-brew bundle --file "$BREWFILE_CORE"
-
-if [ "$INSTALL_PACKAGES_CORE_ONLY" = "1" ]; then
-  ech "Skip to install packages in $BREWFILE"
-  exit 0
-fi
-
-ech "Install packages in $BREWFILE"
-brew bundle --file "$BREWFILE"
+ech "Install packages"
+brew bundle --global
 
