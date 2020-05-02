@@ -74,6 +74,33 @@
       ]
     },
     {
+      "description": "ctrlキー単独でesc、他キーと組み合わせでctrl",
+      "manipulators": [
+      {
+        "type": "basic",
+        "from": {
+          "key_code": "left_control",
+          "modifiers": {
+            "optional": [
+              "any"
+            ]
+          }
+        },
+        "to": [
+        {
+          "key_code": "left_control"
+        }
+        ],
+        "to_if_alone": [
+        {
+          "key_code": "escape"
+        }
+        ]
+      }
+      ]
+    },
+
+    {
       "description": "caps_lockキー単独でesc、他キーと組み合わせでctrl",
       "manipulators": [
       {
