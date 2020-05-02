@@ -46,4 +46,5 @@ cask "virtualbox-extension-pack"
 mas "ForkLift", id: 412448059
 mas "iMovie", id: 408981434
 mas "LINE", id: 539883307
+mas "Magnet", id: 441258766
 mas "Xcode", id: 497799835
