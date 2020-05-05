@@ -28,23 +28,17 @@ brew "heroku/brew/heroku"
 cask "cheatsheet"
 cask "docker"
 cask "dropbox"
-cask "firefox"
 cask "font-hackgen"
 cask "fujitsu-scansnap-home"
 cask "gimp"
 cask "google-chrome"
 cask "google-japanese-ime"
-cask "hyper"
 cask "karabiner-elements"
-cask "kindle"
-cask "postman"
-cask "shiftit"
 cask "vagrant"
 cask "visual-studio-code"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
 mas "ForkLift", id: 412448059
-mas "iMovie", id: 408981434
 mas "LINE", id: 539883307
 mas "Magnet", id: 441258766
 mas "Xcode", id: 497799835
