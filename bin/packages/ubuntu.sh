@@ -57,6 +57,7 @@ apt install -y shellcheck
 apt install -y tree
 apt install -y ibus-mozc
 apt install -y gimp
+apt install -y imagemagick
 
 # ========== snap ==========
 snap install --classic code

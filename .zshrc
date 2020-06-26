@@ -44,6 +44,15 @@ export LESS='-R'
 alias covid19='curl https://corona-stats.online/'
 alias covid-19='curl https://corona-stats.online/'
 
+compress() {
+  echo "tar zcvf $1.tar.gz $1"
+  tar zcvf "$1.tar.gz" "$1"
+}
+decompress() {
+  echo "tar zxvf $1"
+  tar zxvf "$1"
+}
+
 #=================================history====================================
 HISTSIZE=50000 # メモリに保存するコマンド数
 HISTFILE=~/.zsh_history
