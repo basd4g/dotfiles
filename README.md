@@ -18,7 +18,7 @@ $ sudo make
 
 ```sh
 # Sign in to Apple ID
-$ open /System/Applications/App\ Store.app
+$ open /System/App\ Store.app
 
 # Setup Homebrew
 $ xcode-select --install
