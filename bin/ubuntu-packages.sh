@@ -1,36 +1,36 @@
 #!/bin/bash -e
 # ======================================== Function Definition ========================================
-Install_nodejs () {
+function Install_nodejs () {
   curl -sL https://deb.nodesource.com/setup
-  apt update
-  apt upgrade -y
-  apt install -y nodejs
+  apt-get update
+  apt-get upgrade -y
+  apt-get install -y nodejs
 }
 
-Install_git () {
+function Install_git () {
   add-apt-repository -y ppa:git-core/ppa
-  apt install -y git
+  apt-get install -y git
 }
 
-Install_yarn () {
+function Install_yarn () {
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
   YARN_PACKAGE_URL='deb https://dl.yarnpkg.com/debian/ stable main'
   YARN_LIST='/etc/apt/sources.list.d/yarn.list'
   if ! grep -q "$YARN_PACKAGE_URL" "$YARN_LIST" ; then
     echo "$YARN_PACKAGE_URL" >> "$YARN_LIST"
   fi
-  apt update
-  apt install -y yarn
+  apt-get update
+  apt-get install -y yarn
 }
 
-Install_deno () {
+function Install_deno () {
   sudo_user=$SUDO_USER
   curl -fsSL https://deno.land/x/install/install.sh | sudo su - $sudo_user
   sudo_user_home=`getent passwd $sudo_user`
   $sudo_user_home/.deno/bin/deno completions zsh >  /usr/local/share/zsh/site-functions/_deno
 }
 
-Install_hackgen () {
+function Install_hackgen () {
   TMP_FILE="/tmp/dotfiles/hackgen"
   TMP_FILE_ZIP="$TMP_FILE.zip"
   TMP_DIR="$(dirname "$TMP_FILE_ZIP")"
@@ -52,34 +52,34 @@ Install_hackgen () {
   fc-cache -fv
 }
 
-Install_vscode () {
+function Install_vscode () {
   curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
   install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft-archive-keyring.gpg
   sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-  apt install -y apt-transport-https
-  apt update
-  apt install -y code # or code-insiders
+  apt-get install -y apt-transport-https
+  apt-get update
+  apt-get install -y code # or code-insiders
   # https://wiki.debian.org/VisualStudioCode
   # https://code.visualstudio.com/docs/setup/linux
 }
 
-Install_spotify () {
+function Install_spotify () {
   curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | apt-key add -
   SPOTIFY_PACKAGE_URL="deb http://repository.spotify.com stable non-free"
   SPOTIFY_LIST="/etc/apt/sources.list.d/spotify.list"
   if ! grep -q "$SPOTIFY_PACKAGE_URL" "$SPOTIFY_LIST" ; then
     echo "$SPOTIFY_PACKAGE_URL" >> "$SPOTIFY_LIST"
   fi
-  apt update
-  apt install -y spotify-client
+  apt-get update
+  apt-get install -y spotify-client
   # https://www.spotify.com/jp/download/linux/
 }
 
-Install_vivaldi () {
+function Install_vivaldi () {
   wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | apt-key add -
   add-apt-repository 'deb https://repo.vivaldi.com/archive/deb/ stable main'
-  apt update
-  apt install -y vivaldi-stable
+  apt-get update
+  apt-get install -y vivaldi-stable
   #  https://help.vivaldi.com/ja/article/manual-setup-vivaldi-linux-repositories/
 }
 
@@ -91,29 +91,36 @@ if [ "$(whoami)" != "root" ]; then
   echo "Require root privilege"
   exit 1
 fi
-if ! command -v apt > /dev/null 2>&1 ; then
+if ! command -v apt-get > /dev/null 2>&1 ; then
   echo "Need apt"
   exit 1
 fi
 
 echo "Install packages for CUI"
 
-apt install -y curl
+apt-get install -y curl
 Install_nodejs
 Install_git
 Install_yarn
 Install_deno
-apt install -y vim
-apt install -y zsh
-apt install -y tmux
-apt install -y colordiff
-apt install -y gdebi
-apt install -y ffmpeg
-apt install -y nkf
-apt install -y nmap
-apt install -y shellcheck
-apt install -y tree
-apt install -y imagemagick
+apt-get install -y vim
+apt-get install -y zsh
+apt-get install -y tmux
+
+Install_hackgen
+Install_vscode
+Install_spotify
+Install_vivaldi
+exit 0 # for debug
+
+apt-get install -y colordiff
+apt-get install -y gdebi
+apt-get install -y ffmpeg
+apt-get install -y nkf
+apt-get install -y nmap
+apt-get install -y shellcheck
+apt-get install -y tree
+apt-get install -y imagemagick
 snap install --classic heroku
 snap install docker
 
@@ -128,9 +135,9 @@ Install_hackgen
 Install_vscode
 Install_spotify
 Install_vivaldi
-apt install -y ibus-mozc
-apt install -y gimp
-apt install -y screenruler
+apt-get install -y ibus-mozc
+apt-get install -y gimp
+apt-get install -y screenruler
 snap install chromium
 snap install pick-colour-picker
 # snap install --classic shotcut
